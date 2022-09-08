@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <h1 class="brand">Kikokotoo Cocktails</h1>
+    <h2 class="quote">Keep calm and drink a cocktail!</h2>
+  </header>
+  <nav>
+    <ul>
+        <a href="#"><li>Home Away From Home</li></a>
+    </ul>
+  </nav>
+  <main>
+    <section>
+      <form id="drink-form">
+      Exquisite Drink Name : <input type="text" id="drink" name="drink" placeholder="Search for your drink..." required>
+      <input type="submit" id="search" value="Take a look"/>
+      </form>
+    </section>
+    <section>
+      <table id="cocktailsTable">
+        <tr>
+          <th>Cocktail</th>
+          <th>Image</th>
+          <th>Alcoholic</th>
+          <th>Ingredients</th>
+        </tr>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </section>
+  </main>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
