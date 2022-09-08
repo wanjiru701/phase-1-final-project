@@ -3,22 +3,19 @@ let input = document.getElementById("drink");
 let filter = input.value;
 let cocktails = [];
 
-
-document.addEventListener("DOMContentLoaded", () => { //Make sure these work after page loads...
+document.addEventListener("DOMContentLoaded", () => { 
     const searchBtn = document.querySelector("#search");
 })
-
-
-function loadTable(){ //Umbrella function for deleting old table, and generating new table from the filter.
+function loadTable(){ //fetch operation
     let completeUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${filter}`;
 
-    fetch(completeUrl) //Fetch info from TheCocktailDB.
-    .then(response => response.json()) //Converts response to JSON.
+    fetch(completeUrl) 
+    .then(response => response.json()) 
     .then(data => {
-        cocktails = []; //Delete old Array.
+        cocktails = []; 
 
         for(let i = 0; i < data.drinks.length; i++){
-            let drink = { //Object of the cocktail.
+            let drink = { 
                 drinkName: data.drinks[i].strDrink,
                 drinkImg: data.drinks[i].strDrinkThumb,
                 alcoholic: data.drinks[i].strAlcoholic,
@@ -35,56 +32,45 @@ function loadTable(){ //Umbrella function for deleting old table, and generating
        deleteRows();
        createRows();
     })
-    return cocktails; //Update cocktails in the global scope.
+    return cocktails;
 }
 
-
-function deleteRows(){ //Function to delete rows before new table is generated.
+function deleteRows(){ 
     let rowCount = table.rows.length;
     for(let i = rowCount; i > 0; i--){
         table.deleteRow(0);
     }
 }
+function createRows(){ 
+    for(let i = 0; i < cocktails.length; i++){ 
+        let newRow = table.insertRow(i); 
 
-
-function createRows(){ //Function to add rows (with cells) for newly generated table
-    for(let i = 0; i < cocktails.length; i++){ //For the number of cocktails (vertical).
-        let newRow = table.insertRow(i); //Create the (horizontal) row for the cocktail.
-
-            let cell = newRow.insertCell(0); //Cell [0, i]
+            let cell = newRow.insertCell(0); 
             cell.innerText = cocktails[i].drinkName;
 
-            cell = newRow.insertCell(1); //Cell [1, i]
+            cell = newRow.insertCell(1); 
             cell.appendChild(image(cocktails[i].drinkImg));
 
-            cell = newRow.insertCell(2); //Cell [2, i]
+            cell = newRow.insertCell(2); 
             cell.innerText = cocktails[i].alcoholic;
 
-            cell = newRow.insertCell(3); //Cell [3, i]
+            cell = newRow.insertCell(3); 
             cell.innerText = cocktails[i].ingredients;            
     }
 }
-
-
-function image(pic){ //Function to create Image element from URL.
+function image(pic){ 
     let img = document.createElement('img');
-    img.src = pic; //Set img source to the arbitrary "pic" value(cocktails[i].drinkImg).
+    img.src = pic; 
     img.style.height = "100px";
     return img;
 }
-
-
 function tableSubmit(event){ 
-    event.preventDefault(); //Prevent reloading of page.
+    event.preventDefault(); 
     loadTable();
 }
-
-
 let drinkForm = document.getElementById("drink-form");
-drinkForm.addEventListener("submit", tableSubmit); //Invoke the tableSubmit function with the search button.
-
-
-    input.addEventListener("change", () => { //Event Listener to set filter = input.value.
+drinkForm.addEventListener("submit", tableSubmit); 
+    input.addEventListener("change", () => { 
         filter = input.value;
         return filter;
     });
